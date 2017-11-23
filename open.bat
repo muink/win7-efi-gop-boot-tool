@@ -171,7 +171,7 @@ goto :eof
 
 :[OtherBCD]
 cls
-echo.&echo.Please use diskpart to assign a drive letter to the Boot partition of the hard disk where the target system resides&echo.
+echo.&echo.Please use diskpart to assign a drive letter to the EFI partition of the hard disk where the target system resides&echo.
 set /p bo_letter=Enter drive letter of the Boot partition: 
 echo.%bo_letter%|findstr /i "\<[a-z,A-Z]\>">nul||goto [OtherBCD]
 echo.%bo_letter%|findstr /i "\<[c,C]\>">nul&&goto [OtherBCD]
