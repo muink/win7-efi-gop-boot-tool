@@ -33,7 +33,14 @@ set "install_volume=C"
 set install_version=
 call:[CheckSystem] install_version
 call:[Install]
+::Disable Vesa Bios
 bcdedit /set {current} novesa on
+::Disable Boot Display
+rem bcdedit /set {current} quietboot on
+::Boot Log Initialization "%WINDIR%\Ntbtlog.txt"
+rem bcdedit /set {current} bootlog yes
+::Boot Status Policy - Ignore all boot failures and start Windows normally.(Default)
+rem bcdedit /set {current} bootstatuspolicy IgnoreAllFailures
 goto COMPLETE
 
 :menu_2
@@ -175,7 +182,14 @@ echo.&echo.Please use diskpart to assign a drive letter to the EFI partition of 
 set /p bo_letter=Enter drive letter of the Boot partition: 
 echo.%bo_letter%|findstr /i "\<[a-z,A-Z]\>">nul||goto [OtherBCD]
 echo.%bo_letter%|findstr /i "\<[c,C]\>">nul&&goto [OtherBCD]
+::Disable Vesa Bios
 bcdedit /store %bo_letter%:\efi\Microsoft\boot\bcd /set {default} novesa on||goto [OtherBCD]
+::Disable Boot Display
+rem bcdedit /store %bo_letter%:\efi\Microsoft\boot\bcd /set {default} quietboot on||goto [OtherBCD]
+::Boot Log Initialization "%WINDIR%\Ntbtlog.txt"
+rem bcdedit /store %bo_letter%:\efi\Microsoft\boot\bcd /set {default} bootlog yes||goto [OtherBCD]
+::Boot Status Policy - Ignore all boot failures and start Windows normally.(Default)
+rem bcdedit /store %bo_letter%:\efi\Microsoft\boot\bcd /set {default} bootstatuspolicy IgnoreAllFailures||goto [OtherBCD]
 goto :eof
 
 
