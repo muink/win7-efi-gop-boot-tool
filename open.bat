@@ -28,7 +28,7 @@ if not "%install_mode%"=="0" (
 
 :menu_1
 cls
-set "install_volume=C"
+set "install_volume=%SystemDrive:~0,1%"
 ::checksystem
 set install_version=
 call:[CheckSystem] install_version
